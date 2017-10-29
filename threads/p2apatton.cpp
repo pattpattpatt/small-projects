@@ -68,8 +68,8 @@ void get_input_from_file(string infile){
 
 
 void *merge(void * params){
-
-  //cout << "MERGING" << endl;
+  //Testing code
+  cout << "MERGE thread: " << pthread_self() << endl;
   //dereference pointer and get struct
   sort_struct *data = (sort_struct*)params;
 
@@ -122,6 +122,8 @@ void *merge(void * params){
 
 
 void *mergesort(void * params){
+  //testing code
+  cout << "Mergesort thread: " << pthread_self() << endl;
   //dereference pointer and get struct
   sort_struct *data = (sort_struct*)params;
 
@@ -141,24 +143,28 @@ void *mergesort(void * params){
 
   if (data->left < data->right){
     //create threads and return values
-    //pthread_t l_thread, r_thread, merge_thread;
+    pthread_t l_thread, r_thread, merge_thread;
     int lt_ret_val, rt_ret_val, merge_t_ret_val;
 
     //call thread 1
-    //lt_ret_val = pthread_create(&l_thread, NULL, mergesort, ldata_ptr);
-    //if (lt_ret_val != 0)
-      //INSERT ERROR HANDLING CODE
-	
-	//
-	mergesort(ldata_ptr);
+    lt_ret_val = pthread_create(&l_thread, NULL, mergesort, ldata_ptr);
+
+    if (lt_ret_val != 0)
+      cout << "Thread (left) failed to start" << endl;
+	  //testing code
+	  //mergesort(ldata_ptr);
+
     //call thread 2
-    //rt_ret_val = pthread_create(&r_thread, NULL, mergesort, rdata_ptr);
-    //if (rt_ret_val !=0)
-      //INSERT ERROR HANDLING CODE
-	mergesort(rdata_ptr);
+    rt_ret_val = pthread_create(&r_thread, NULL, mergesort, rdata_ptr);
+    if (rt_ret_val !=0)
+      cout << "Thread (right) failed to start";
+
+    //testing code
+    //mergesort(rdata_ptr);
+
     //wait for both to return
-    //pthread_join(l_thread, NULL);
-    //pthread_join(r_thread, NULL);
+    pthread_join(l_thread, NULL);
+    pthread_join(r_thread, NULL);
 
     //call thread 3 to merge the two sorted arrays
     //merge_t_ret_val = pthread_create(&merge_thread, NULL, merge, data);
@@ -192,3 +198,4 @@ int main(int argc, char const *argv[]) {
 
   return 0;
 }
+
