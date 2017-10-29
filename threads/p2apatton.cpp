@@ -29,9 +29,12 @@ typedef struct {
 
 
 void print_array(const int array[ARRAY_SIZE]){
+  //warning output
+  cout << endl << "Output ignores leading 0's" << endl;
+
   //print results to the screen
   for (int i=0; i < ARRAY_SIZE; i++){
-    //if (array[i] != 0)
+    if (array[i] != 0)
       cout << array[i] << endl;
   }
 }
@@ -69,7 +72,8 @@ void get_input_from_file(string infile){
 
 void *merge(void * params){
   //Testing code
-  cout << "MERGE thread: " << pthread_self() << endl;
+  //cout << "MERGE thread: " << pthread_self() << endl;
+  
   //dereference pointer and get struct
   sort_struct *data = (sort_struct*)params;
 
@@ -123,7 +127,8 @@ void *merge(void * params){
 
 void *mergesort(void * params){
   //testing code
-  cout << "Mergesort thread: " << pthread_self() << endl;
+  //cout << "Mergesort thread: " << pthread_self() << endl;
+  
   //dereference pointer and get struct
   sort_struct *data = (sort_struct*)params;
 
@@ -184,7 +189,7 @@ int main(int argc, char const *argv[]) {
     return 0;
   }
 
-  //print_array(input_array);
+  print_array(input_array);
 
   //initialize params
   sort_struct params, *param_ptr;
@@ -198,4 +203,3 @@ int main(int argc, char const *argv[]) {
 
   return 0;
 }
-
