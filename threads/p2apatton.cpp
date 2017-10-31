@@ -172,8 +172,9 @@ void *mergesort(void * params){
     pthread_join(r_thread, NULL);
 
     //call thread 3 to merge the two sorted arrays
-    //merge_t_ret_val = pthread_create(&merge_thread, NULL, merge, data);
-	merge(data);
+    merge_t_ret_val = pthread_create(&merge_thread, NULL, merge, data);
+	
+    //merge(data);
   }
 
   return 0;
