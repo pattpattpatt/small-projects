@@ -73,7 +73,7 @@ bool remove_item(int *item){
         buffer[buff_count-1] = -1;
 
         //print true
-        cout << "Consumer thread [" << pthread_self() << "] consumed item " << *item << " from buffer " << buff_count-1 << endl;
+        cout << "Consumer [" << pthread_self() << "] consumed item " << *item << " from buffer " << buff_count-1 << endl;
 
         //decrement counter
         buff_count--;
@@ -106,7 +106,7 @@ void * producer(void *param){
         pthread_mutex_lock(&buff_lock);
 
         //testing
-        cout << "Producer Enter: " << pthread_self() << endl;
+        //cout << "Producer Enter: " << pthread_self() << endl;
 
         if (insert_item(item));
 
@@ -114,8 +114,8 @@ void * producer(void *param){
             cout << "BUFFER FULL!" << endl;
 
         //testing
-        print_buffer();
-        cout << "Producer Exit: " << pthread_self() << endl;
+        //print_buffer();
+        //cout << "Producer Exit: " << pthread_self() << endl;
 
         //unlock buffer
         pthread_mutex_unlock(&buff_lock);
@@ -146,7 +146,7 @@ void * consumer(void *param){
         pthread_mutex_lock(&buff_lock);
 
         //testing
-        cout << "Consumer Enter: " << pthread_self() << endl;
+        //cout << "Consumer Enter: " << pthread_self() << endl;
 
         //get item from buffer
         if (remove_item(&item));
@@ -155,8 +155,8 @@ void * consumer(void *param){
             cout << "BUFFER EMPTY!" << endl;
 
         //testing
-        print_buffer();
-        cout << "Consumer Exit: " << pthread_self() << endl;
+        //print_buffer();
+        //cout << "Consumer Exit: " << pthread_self() << endl;
 
         //release lock
         pthread_mutex_unlock(&buff_lock);
@@ -211,8 +211,8 @@ int main() {
         if (er != 0){
             cout << "Producer Thread [" <<  prod_id[thread_cnt] << "] id: [" << prod_threads[thread_cnt] << "] failed to initialize" << endl;
         }
-        else
-            cout << "Producer Thread [" << prod_id[thread_cnt] << "] id: [" << prod_threads[thread_cnt] << "] initialized successfully!" << endl;
+        else;
+            //cout << "Producer Thread [" << prod_id[thread_cnt] << "] id: [" << prod_threads[thread_cnt] << "] initialized successfully!" << endl;
     }
 
     //create consumer threads
@@ -227,8 +227,8 @@ int main() {
         if (er != 0){
             cout << "Consumer Thread [" << cons_id[thread_cnt] << "] id: [" << cons_threads[thread_cnt] << "] failed to initialize" << endl;
         }
-        else
-            cout << "Consumer Thread [" << cons_id[thread_cnt]  << "] id: [" << cons_threads[thread_cnt] << "]initialized successfully!" << endl;
+        else;
+            //cout << "Consumer Thread [" << cons_id[thread_cnt]  << "] id: [" << cons_threads[thread_cnt] << "]initialized successfully!" << endl;
     }
 
     //sleep
